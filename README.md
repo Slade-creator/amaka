@@ -30,6 +30,7 @@ Every data endpoint needs a bearer token — see
 Design rationale: [`docs/DASHBOARD_PRINCIPLES.md`](docs/DASHBOARD_PRINCIPLES.md).
 Model card: [`docs/MODEL_CARD_V2.md`](docs/MODEL_CARD_V2.md).
 Chart explanation: [`docs/AI_NARRATIVE.md`](docs/AI_NARRATIVE.md).
+Colours, config and the tower background: [`docs/THEMING_AND_CONFIG.md`](docs/THEMING_AND_CONFIG.md).
 SCADA (OPC UA) integration and live forecasting: [`docs/SCADA_AND_LIVE_FORECAST.md`](docs/SCADA_AND_LIVE_FORECAST.md).
 UI terminology: [`docs/VOCABULARY.md`](docs/VOCABULARY.md).
 Screenshots: [`docs/screenshots/`](docs/screenshots/). Demo flow:
@@ -48,6 +49,7 @@ Screenshots: [`docs/screenshots/`](docs/screenshots/). Demo flow:
 | Data sources, Analyst | [`09-data-sources.png`](docs/screenshots/09-data-sources.png) |
 | Desktop fleet map | [`10-desktop-fleet.png`](docs/screenshots/10-desktop-fleet.png) |
 | Desktop site console | [`11-desktop-console.png`](docs/screenshots/11-desktop-console.png) |
+| Intro: lit transmission-tower flythrough (WebGPU) | [`18-intro-towers.png`](docs/screenshots/18-intro-towers.png) |
 | Live forecast from real readings | [`12-live-forecast.png`](docs/screenshots/12-live-forecast.png) |
 | Desktop fleet with tools (Satellite · Alerts · Data sources) | [`13-desktop-fleet-tools.png`](docs/screenshots/13-desktop-fleet-tools.png) |
 | Desktop alerts drawer | [`14-desktop-alerts.png`](docs/screenshots/14-desktop-alerts.png) |

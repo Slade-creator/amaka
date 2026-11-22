@@ -2,6 +2,7 @@
 //   src/theme/theme.css   :root custom properties (--name, --name-rgb)
 //   src/theme/tokens.ts   typed TOKENS object for canvas / map / native code
 //   android colours.xml   native colours listed under "native"
+//   capacitor.config.ts   the splash/background colour (marked block)
 // Run with `npm run theme`; `npm run build` and `npm run dev` run it first.
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import path from "node:path";
@@ -52,5 +53,17 @@ if (existsSync(colorsXml)) {
     xml = xml.replace(new RegExp(`(<color name="${res}">)[^<]*(</color>)`), `$1${flat[token]}$2`);
   }
   writeFileSync(colorsXml, xml);
+}
+// ---- Capacitor config (loaded by the CLI without runtime imports) -----------
+const capPath = path.join(root, "capacitor.config.ts");
+if (existsSync(capPath)) {
+  const bgToken = palette.native.colorPrimary;
+  if (!(bgToken in flat)) throw new Error(`native.colorPrimary names unknown token "${bgToken}"`);
+  const marker = /(\/\/ theme:begin[^\n]*\n)[\s\S]*?(\/\/ theme:end)/;
+  const cap = readFileSync(capPath, "utf8").replace(
+    marker,
+    (_m, begin, end) => `${begin}const BG = "${flat[bgToken]}";\n${end}`,
+  );
+  writeFileSync(capPath, cap);
 }
 console.log(`theme: ${Object.keys(flat).length} tokens -> src/theme/theme.css, src/theme/tokens.ts`);

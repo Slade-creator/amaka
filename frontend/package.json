@@ -6,8 +6,9 @@
   "scripts": {
     "theme": "node scripts/gen-theme.mjs",
     "predev": "node scripts/gen-theme.mjs",
-    "prebuild": "node scripts/gen-theme.mjs",
-    "prebuild:mobile": "node scripts/gen-theme.mjs",
+    "prebuild": "node scripts/gen-theme.mjs && node scripts/check-theme.mjs",
+    "prebuild:mobile": "node scripts/gen-theme.mjs && node scripts/check-theme.mjs",
+    "check:theme": "node scripts/check-theme.mjs",
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "build:mobile": "tsc --noEmit && vite build --mode mobile",
