@@ -48,3 +48,4 @@ frontend/android/capacitor-cordova-android-plugins/
 graphify-out/
 *.apk
 .aws-sam/
+dist-web/
