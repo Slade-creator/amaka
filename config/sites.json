@@ -1,0 +1,316 @@
+{
+  "generated_at": "2026-11-01T17:26:23.064577+00:00",
+  "test_period": {
+    "start": "2025-07-01",
+    "end": "2025-12-31T23:00:00"
+  },
+  "fleet_anchor": "2025-09-08T18:00:00",
+  "model": {
+    "name": "Hybrid XGBoost + Residual LSTM",
+    "stage1": "XGBoost Regressor (300 trees, depth 6)",
+    "stage2": "2-layer LSTM, 32 hidden, 168h lookback",
+    "horizon": "1 hour ahead (operational replay)",
+    "features": 23
+  },
+  "cost_assumptions": {
+    "energy_tariff_zmw_kwh": 1.78,
+    "demand_charge_zmw_kw_month": 120.0,
+    "diesel_price_zmw_litre": 30.0,
+    "generator_litres_per_kwh": 0.28,
+    "generator_share_of_energy": 0.03,
+    "peak_shaving_fraction": 0.08,
+    "fuel_efficiency_gain": 0.1,
+    "hours_per_month": 730,
+    "usd_rate_zmw": 28.5
+  },
+  "sites": [
+    {
+      "id": "arakan",
+      "label": "Arakan Barracks",
+      "location": "Lusaka",
+      "type": "Admin + residential barracks",
+      "base_load_kw": 1800,
+      "pv_kwp": 400,
+      "headcount": 2000,
+      "floor_area_m2": 15000,
+      "lat": -15.435,
+      "lon": 28.321,
+      "test_start": "2025-07-01T00:00:00",
+      "test_end": "2025-12-31T23:00:00",
+      "rows": 4416,
+      "demo_anchor": "2025-10-04T18:00:00",
+      "demo_start": "2025-10-01T18:00:00",
+      "metrics": {
+        "xgb_rmse": 87.7,
+        "xgb_mae": 52.4,
+        "hyb_rmse": 87.7,
+        "hyb_mae": 52.3,
+        "hyb_mape": 2.78,
+        "persistence_mae": 134.6,
+        "seasonal_naive_mae": 206.4,
+        "band_kw": 170.4
+      },
+      "load": {
+        "avg_kw": 1789.9,
+        "peak_kw": 3697.7,
+        "threshold_kw": 2400.0,
+        "latest_actual_kw": 1768.9,
+        "latest_hybrid_kw": 1705.4
+      },
+      "alerts": {
+        "peak_hours": 213,
+        "surge_hours": 181,
+        "variance_hours": 137
+      },
+      "cost": {
+        "energy_month_kwh": 1306629,
+        "baseline_monthly_zmw": 2769524,
+        "monthly_saving_zmw": 68425,
+        "annual_saving_zmw": 821100,
+        "demand_saving_zmw": 35498,
+        "fuel_saving_zmw": 32927,
+        "saving_pct": 2.47
+      }
+    },
+    {
+      "id": "kohima",
+      "label": "Kohima Barracks",
+      "location": "Lusaka",
+      "type": "HQ + logistics barracks",
+      "base_load_kw": 2200,
+      "pv_kwp": 500,
+      "headcount": 2500,
+      "floor_area_m2": 18000,
+      "lat": -14.406,
+      "lon": 28.488,
+      "test_start": "2025-07-01T00:00:00",
+      "test_end": "2025-12-31T23:00:00",
+      "rows": 4416,
+      "demo_anchor": "2025-09-30T20:00:00",
+      "demo_start": "2025-09-27T20:00:00",
+      "metrics": {
+        "xgb_rmse": 73.1,
+        "xgb_mae": 53.5,
+        "hyb_rmse": 73.1,
+        "hyb_mae": 53.6,
+        "hyb_mape": 2.52,
+        "persistence_mae": 155.7,
+        "seasonal_naive_mae": 230.2,
+        "band_kw": 143.0
+      },
+      "load": {
+        "avg_kw": 2130.0,
+        "peak_kw": 4789.8,
+        "threshold_kw": 2950.0,
+        "latest_actual_kw": 1961.5,
+        "latest_hybrid_kw": 1950.6
+      },
+      "alerts": {
+        "peak_hours": 104,
+        "surge_hours": 67,
+        "variance_hours": 189
+      },
+      "cost": {
+        "energy_month_kwh": 1554934,
+        "baseline_monthly_zmw": 3342558,
+        "monthly_saving_zmw": 85166,
+        "annual_saving_zmw": 1021997,
+        "demand_saving_zmw": 45982,
+        "fuel_saving_zmw": 39184,
+        "saving_pct": 2.55
+      }
+    },
+    {
+      "id": "makeni",
+      "label": "ZNS Makeni",
+      "location": "Lusaka",
+      "type": "ZNS camp",
+      "base_load_kw": 1000,
+      "pv_kwp": 250,
+      "headcount": 900,
+      "floor_area_m2": 8000,
+      "lat": -15.47,
+      "lon": 28.25,
+      "test_start": "2025-07-01T00:00:00",
+      "test_end": "2025-12-31T23:00:00",
+      "rows": 4416,
+      "demo_anchor": "2025-12-12T18:00:00",
+      "demo_start": "2025-12-09T18:00:00",
+      "metrics": {
+        "xgb_rmse": 37.0,
+        "xgb_mae": 27.5,
+        "hyb_rmse": 37.0,
+        "hyb_mae": 27.4,
+        "hyb_mape": 2.63,
+        "persistence_mae": 82.4,
+        "seasonal_naive_mae": 116.6,
+        "band_kw": 72.3
+      },
+      "load": {
+        "avg_kw": 1047.4,
+        "peak_kw": 2043.2,
+        "threshold_kw": 1500.0,
+        "latest_actual_kw": 981.3,
+        "latest_hybrid_kw": 992.1
+      },
+      "alerts": {
+        "peak_hours": 97,
+        "surge_hours": 117,
+        "variance_hours": 208
+      },
+      "cost": {
+        "energy_month_kwh": 764571,
+        "baseline_monthly_zmw": 1606120,
+        "monthly_saving_zmw": 38882,
+        "annual_saving_zmw": 466583,
+        "demand_saving_zmw": 19615,
+        "fuel_saving_zmw": 19267,
+        "saving_pct": 2.42
+      }
+    },
+    {
+      "id": "mikango",
+      "label": "Mikango Barracks",
+      "location": "Chongwe",
+      "type": "Training depot",
+      "base_load_kw": 1200,
+      "pv_kwp": 350,
+      "headcount": 1100,
+      "floor_area_m2": 10000,
+      "lat": -15.329,
+      "lon": 28.682,
+      "test_start": "2025-07-01T00:00:00",
+      "test_end": "2025-12-31T23:00:00",
+      "rows": 4416,
+      "demo_anchor": "2025-10-30T16:00:00",
+      "demo_start": "2025-10-27T16:00:00",
+      "metrics": {
+        "xgb_rmse": 52.5,
+        "xgb_mae": 35.5,
+        "hyb_rmse": 52.4,
+        "hyb_mae": 35.4,
+        "hyb_mape": 2.77,
+        "persistence_mae": 97.5,
+        "seasonal_naive_mae": 146.1,
+        "band_kw": 102.5
+      },
+      "load": {
+        "avg_kw": 1260.0,
+        "peak_kw": 2970.1,
+        "threshold_kw": 1800.0,
+        "latest_actual_kw": 1121.7,
+        "latest_hybrid_kw": 1149.2
+      },
+      "alerts": {
+        "peak_hours": 147,
+        "surge_hours": 219,
+        "variance_hours": 167
+      },
+      "cost": {
+        "energy_month_kwh": 919828,
+        "baseline_monthly_zmw": 1993705,
+        "monthly_saving_zmw": 51693,
+        "annual_saving_zmw": 620311,
+        "demand_saving_zmw": 28513,
+        "fuel_saving_zmw": 23180,
+        "saving_pct": 2.59
+      }
+    },
+    {
+      "id": "peter_zuze",
+      "label": "Peter Zuze AFB",
+      "location": "Ndola",
+      "type": "Air force base",
+      "base_load_kw": 3000,
+      "pv_kwp": 800,
+      "headcount": 1800,
+      "floor_area_m2": 26000,
+      "lat": -12.9972,
+      "lon": 28.6639,
+      "test_start": "2025-07-01T00:00:00",
+      "test_end": "2025-12-31T23:00:00",
+      "rows": 4416,
+      "demo_anchor": "2025-09-08T17:00:00",
+      "demo_start": "2025-09-05T17:00:00",
+      "metrics": {
+        "xgb_rmse": 88.1,
+        "xgb_mae": 67.3,
+        "hyb_rmse": 88.1,
+        "hyb_mae": 67.3,
+        "hyb_mape": 2.44,
+        "persistence_mae": 215.0,
+        "seasonal_naive_mae": 297.0,
+        "band_kw": 172.7
+      },
+      "load": {
+        "avg_kw": 2799.4,
+        "peak_kw": 4899.1,
+        "threshold_kw": 3950.0,
+        "latest_actual_kw": 2938.8,
+        "latest_hybrid_kw": 2917.4
+      },
+      "alerts": {
+        "peak_hours": 63,
+        "surge_hours": 62,
+        "variance_hours": 209
+      },
+      "cost": {
+        "energy_month_kwh": 2043582,
+        "baseline_monthly_zmw": 4225468,
+        "monthly_saving_zmw": 98530,
+        "annual_saving_zmw": 1182356,
+        "demand_saving_zmw": 47031,
+        "fuel_saving_zmw": 51498,
+        "saving_pct": 2.33
+      }
+    },
+    {
+      "id": "tug_argan",
+      "label": "Tug Argan Barracks",
+      "location": "Ndola",
+      "type": "Army garrison",
+      "base_load_kw": 1500,
+      "pv_kwp": 300,
+      "headcount": 1400,
+      "floor_area_m2": 12000,
+      "lat": -12.995,
+      "lon": 28.665,
+      "test_start": "2025-07-01T00:00:00",
+      "test_end": "2025-12-31T23:00:00",
+      "rows": 4416,
+      "demo_anchor": "2025-12-08T19:00:00",
+      "demo_start": "2025-12-05T19:00:00",
+      "metrics": {
+        "xgb_rmse": 52.9,
+        "xgb_mae": 39.2,
+        "hyb_rmse": 52.8,
+        "hyb_mae": 39.1,
+        "hyb_mape": 2.57,
+        "persistence_mae": 112.9,
+        "seasonal_naive_mae": 184.7,
+        "band_kw": 103.5
+      },
+      "load": {
+        "avg_kw": 1531.1,
+        "peak_kw": 3071.3,
+        "threshold_kw": 2150.0,
+        "latest_actual_kw": 1459.6,
+        "latest_hybrid_kw": 1451.0
+      },
+      "alerts": {
+        "peak_hours": 164,
+        "surge_hours": 197,
+        "variance_hours": 221
+      },
+      "cost": {
+        "energy_month_kwh": 1117691,
+        "baseline_monthly_zmw": 2358047,
+        "monthly_saving_zmw": 57650,
+        "annual_saving_zmw": 691804,
+        "demand_saving_zmw": 29484,
+        "fuel_saving_zmw": 28166,
+        "saving_pct": 2.44
+      }
+    }
+  ]
+}

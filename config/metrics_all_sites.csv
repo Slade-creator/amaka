@@ -1,0 +1,7 @@
+site,xgb_rmse,xgb_mae,hyb_rmse,hyb_mae,hyb_mape
+arakan,87.7,52.4,87.7,52.3,2.78
+kohima,73.1,53.5,73.1,53.6,2.52
+makeni,37.0,27.5,37.0,27.4,2.63
+mikango,52.5,35.5,52.4,35.4,2.77
+peter_zuze,88.1,67.3,88.1,67.3,2.44
+tug_argan,52.9,39.2,52.8,39.1,2.57

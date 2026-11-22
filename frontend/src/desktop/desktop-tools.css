@@ -1,0 +1,121 @@
+/* Desktop toolbar + drawer hosting the phone screens. */
+
+.dk-toolbar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.dk-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--color-fg);
+  background: rgb(var(--white-rgb)/0.03);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.dk-tool:hover {
+  border-color: rgb(var(--accent-rgb)/0.55);
+  background: rgb(var(--accent-rgb)/0.07);
+}
+.dk-badge {
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  display: inline-grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--crit);
+  border-radius: 999px;
+}
+
+/* Full-screen satellite map above the dashboard. */
+.dk-map .mx-root {
+  z-index: 60;
+}
+.dk-map .mx-bottom,
+.dk-map .mx-top {
+  padding-left: max(12px, calc(50vw - 360px));
+  padding-right: max(12px, calc(50vw - 360px));
+}
+
+/* Right-hand drawer: the phone screens at phone width. */
+.dk-drawer-root {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+}
+.dk-scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 0;
+  background: rgb(var(--black-rgb)/0.5);
+  animation: dk-fade 200ms ease both;
+}
+.dk-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(460px, 100vw);
+  overflow: hidden;
+  background: var(--bg);
+  border-left: 1px solid var(--border-strong);
+  box-shadow: -24px 0 60px rgb(var(--black-rgb)/0.55);
+  animation: dk-slide 260ms var(--ease-out) both;
+}
+.dk-drawer > .m-screen,
+.dk-drawer > .m-push {
+  position: absolute;
+  inset: 0;
+}
+.dk-drawer .m-hchip {
+  display: none; /* the desktop top bar owns the horizon */
+}
+.dk-drawer .m-push {
+  animation: none;
+  box-shadow: none;
+}
+.dk-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  color: var(--color-fg);
+  background: rgb(var(--surface-rgb)/0.85);
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  cursor: pointer;
+}
+@keyframes dk-slide {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes dk-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.dk-drawer {
+  --m-tabbar-h: 0px;
+}

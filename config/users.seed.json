@@ -1,0 +1,23 @@
+{
+  "_comment": "Demo accounts created on first API start when config/users.json does not exist. Change or remove for any real deployment (SENTINEL_DEMO_USERS=0 disables seeding).",
+  "users": [
+    {
+      "username": "commander",
+      "name": "Base Commander",
+      "role": "commander",
+      "password": "Sentinel-SWE3YOU_"
+    },
+    {
+      "username": "manager",
+      "name": "Energy Manager",
+      "role": "operator",
+      "password": "Sentinel-i7hNFLG1"
+    },
+    {
+      "username": "analyst",
+      "name": "Energy Analyst",
+      "role": "analyst",
+      "password": "Sentinel-u3TgGaoB"
+    }
+  ]
+}

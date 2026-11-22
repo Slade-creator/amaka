@@ -1,0 +1,10 @@
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px'}}}%%
+flowchart LR
+  A["Forecast inputs<br/>load history, calendar,<br/>weather proxy, readiness"] --> X["Stage 1 XGBoost"]
+  X --> R["OOF residual target<br/>y - XGB"]
+  R --> L["LSTM<br/>168 h"]
+  R --> H["HGB<br/>tabular"]
+  L --> S["Validation-selected<br/>correction alpha"]
+  H --> S
+  X --> F["Final forecast and test<br/>XGB + alpha * residual"]
+  S --> F

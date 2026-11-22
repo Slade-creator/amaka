@@ -1,0 +1,63 @@
+{
+  "_readme": "Single source of truth for every colour in AMAKA. Edit values here, then run `npm run theme` (the build does it automatically). Never write a hex or rgb() colour anywhere else: use var(--name) in CSS/JSX, rgb(var(--name-rgb)/0.3) for transparency, and color()/rgba() from src/theme/theme.ts in canvas and map code.",
+  "groups": {
+    "brand": {
+      "accent": "#b7f34a",
+      "accent-ink": "#08120a",
+      "accent-soft": "#dcffa0"
+    },
+    "status": {
+      "warn": "#f5a524",
+      "warn-hot": "#ffb020",
+      "warn-soft": "#ffe2b0",
+      "warn-dim": "#c9a257",
+      "warn-ink": "#1a0d00",
+      "crit": "#f25555",
+      "crit-hot": "#ff5d5d",
+      "crit-soft": "#ffb3b3",
+      "info": "#6fa8ff",
+      "teal": "#5ad1c8",
+      "violet": "#b9a7ff"
+    },
+    "surface": {
+      "bg": "#070a09",
+      "bg-deep": "#050807",
+      "bg-void": "#030605",
+      "bg-lift": "#08100c",
+      "panel": "#0b0f0d",
+      "panel-2": "#0f1512",
+      "surface": "#0d1210",
+      "surface-2": "#121916",
+      "surface-3": "#1b2621"
+    },
+    "text": {
+      "fg": "#edf2ef",
+      "fg-2": "#d9e5dc",
+      "fg-3": "#b9c7bf",
+      "dim": "#8b9c92",
+      "muted-2": "#6e7f75",
+      "muted": "#5a6860"
+    },
+    "line": {
+      "line": "#18211d",
+      "line-2": "#22302a",
+      "line-3": "#2e4038",
+      "line-4": "#33443b"
+    },
+    "neutral": {
+      "white": "#ffffff",
+      "black": "#000000"
+    },
+    "scene": {
+      "scene-horizon": "#0d2016",
+      "map-glow": "#1f4630"
+    }
+  },
+  "native": {
+    "_comment": "Android resource colours (res/values/colors.xml) and the browser theme-color, by palette name.",
+    "colorPrimary": "bg",
+    "colorPrimaryDark": "bg",
+    "colorAccent": "accent",
+    "themeColor": "bg"
+  }
+}

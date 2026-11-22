@@ -1,0 +1,8 @@
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px'}}}%%
+flowchart LR
+  A["Security-wing facility"] --> B{"Scheduled ZESCO<br/>load shedding?"}
+  B -->|Exempt| E{"Grid fault?"}
+  B -->|Not exempt| D["Load-shedding block<br/>(out of scope)"]
+  E -->|Yes| G["Generator backup<br/>+6% restart, +2% sustained"]
+  E -->|No| H["Internal event handling<br/>(Figure 3.4)"]
+  G --> H

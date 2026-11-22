@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AMAKA brand colors used by the native theme / system bars. -->
+    <color name="colorPrimary">#070a09</color>
+    <color name="colorPrimaryDark">#070a09</color>
+    <color name="colorAccent">#b7f34a</color>
+</resources>

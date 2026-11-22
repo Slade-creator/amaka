@@ -1,0 +1,6 @@
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px'}}}%%
+flowchart LR
+  A["Open-Meteo weather +<br/>Zambian calendar/readiness"] --> C["Synthetic load generator"]
+  C --> D["Facility load CSV<br/>17,544 h/site"]
+  D --> E["Gap-aware preprocessing"]
+  E --> F["Feature table + horizon builder<br/>h = 1, 6, 24, 48"]

@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.vscode/
+
+# Generated datasets (regenerate with src/v2_generate_load.py)
+data/processed/
+data/synthetic_v2/
+
+# Generated models and scalers (regenerate with src/v2_train.py)
+config/*.pkl
+config/*.pt
+config/v2/*
+!config/v2/metrics_midterm.csv
+config/v2_*/
+config/v2_smoke*/
+config/v2_alpha*/
+config/v2_fulltest/
+
+# Mobile / Capacitor
+frontend/android/.gradle/
+frontend/android/.idea/
+frontend/android/build/
+frontend/android/app/build/
+frontend/.env*.local
+frontend/*.keystore
+frontend/*.jks
+
+# Small metrics/summary files are intentionally not ignored:
+# config/metrics_all_sites.csv
+# config/v2/metrics_horizons.csv (if you choose to commit results)
+
+# Auth (accounts hold password hashes; the signing secret must stay private)
+config/users.json
+config/.jwt_secret
+
+# Live meter readings (SQLite)
+data/live/
+.device_sim/
+
+# Node / build output
+node_modules/
+frontend/dist/
+frontend/android/local.properties
+frontend/android/capacitor-cordova-android-plugins/
+.claude/
+graphify-out/
+*.apk
+.aws-sam/

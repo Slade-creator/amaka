@@ -1,0 +1,5 @@
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px'}}}%%
+flowchart LR
+  A["Internal event?"] -->|"Fault / maintenance / comms"| B["Telemetry gap<br/>NaN load"]
+  A -->|None| C["Observed load"]
+  B --> D["Excluded from training loss<br/>and accuracy metrics"]

@@ -1,0 +1,1 @@
+"""AMAKA FastAPI backend package."""

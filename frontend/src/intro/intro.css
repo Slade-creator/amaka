@@ -1,0 +1,178 @@
+/* AMAKA opening sequence. */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  background: var(--bg-void);
+  cursor: pointer;
+  transition: opacity 460ms ease, transform 460ms ease;
+}
+.intro.is-leaving {
+  opacity: 0;
+  transform: scale(1.06);
+}
+.intro-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.intro-brand {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(18% + var(--safe-top));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  text-align: center;
+}
+.intro-mark {
+  width: 84px;
+  height: 84px;
+  overflow: visible;
+  filter: drop-shadow(0 0 14px rgb(var(--accent-rgb)/0.55));
+}
+.im-hex,
+.im-spike {
+  fill: none;
+  stroke: var(--accent);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.im-hex {
+  stroke-width: 3.2;
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  fill: rgb(var(--accent-rgb)/0);
+  animation:
+    im-draw 900ms 1300ms cubic-bezier(0.6, 0, 0.2, 1) forwards,
+    im-fill 600ms 2100ms ease forwards;
+}
+.im-thr {
+  stroke: var(--warn);
+  stroke-width: 1.6;
+  stroke-dasharray: 3 2.5;
+  opacity: 0;
+  animation: im-fade 400ms 1900ms ease forwards;
+}
+.im-spike {
+  stroke-width: 3.6;
+  stroke-dasharray: 130;
+  stroke-dashoffset: 130;
+  animation: im-draw 700ms 2000ms cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+@keyframes im-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes im-fill {
+  to {
+    fill: rgb(var(--accent-rgb)/0.08);
+  }
+}
+@keyframes im-fade {
+  to {
+    opacity: 0.9;
+  }
+}
+
+.intro-word {
+  margin-top: 18px;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0.42em;
+  padding-left: 0.42em;
+  color: var(--fg);
+  text-shadow: 0 0 24px rgb(var(--accent-rgb)/0.35);
+}
+.intro-word span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(6px);
+  animation: iw-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes iw-in {
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+.intro-sub {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  padding-left: 0.5em;
+  color: var(--dim);
+  opacity: 0;
+  animation: im-fade-full 500ms 2950ms ease forwards;
+}
+.intro-tag {
+  margin-top: 22px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--accent-soft);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: tag-in 600ms 3350ms ease forwards;
+}
+@keyframes im-fade-full {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes tag-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.intro-skip {
+  position: absolute;
+  top: calc(14px + var(--safe-top));
+  right: 14px;
+  height: 36px;
+  padding: 0 16px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-3);
+  background: rgb(var(--surface-rgb)/0.6);
+  border: 1px solid rgb(var(--white-rgb)/0.16);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+.intro-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: intro-prog var(--intro-total, 5200ms) linear forwards;
+}
+@keyframes intro-prog {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Keeps the brand legible over the lit scene. */
+.intro-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(var(--bg-void-rgb)/0.55) 0%, rgb(var(--bg-void-rgb)/0.1) 38%, rgb(var(--bg-void-rgb)/0.5) 100%);
+}

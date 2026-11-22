@@ -1,0 +1,465 @@
+/* Satellite map: Fleet card + full-screen explorer with the switch effect. */
+
+/* ------------------------------ pins ------------------------------ */
+
+/* No `position` here: MapLibre's .maplibregl-marker (absolute) places the pin. */
+.mx-pin {
+  --c: var(--accent);
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.mx-pin.is-critical {
+  --c: var(--crit);
+}
+.mx-pin.is-warning {
+  --c: var(--warn);
+}
+.mx-pin-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--c);
+  border: 2.5px solid var(--bg);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 55%, transparent), 0 0 18px var(--c);
+}
+.mx-pin-pulse {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--c);
+  opacity: 0;
+}
+.mx-pin.is-critical .mx-pin-pulse,
+.mx-pin.is-selected .mx-pin-pulse {
+  animation: mx-pulse 1.8s ease-out infinite;
+}
+@keyframes mx-pulse {
+  from {
+    transform: scale(0.6);
+    opacity: 0.95;
+  }
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+.mx-pin-label {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  margin-top: 2px;
+  padding: 2px 7px;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--fg);
+  background: rgb(var(--bg-deep-rgb)/0.78);
+  border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+  border-radius: 6px;
+  pointer-events: none;
+}
+.mx-pin.is-small {
+  width: 26px;
+  height: 26px;
+}
+.mx-pin.is-small .mx-pin-dot {
+  width: 11px;
+  height: 11px;
+  border-width: 2px;
+}
+.mx-pin.is-small .mx-pin-pulse {
+  inset: 6px;
+}
+
+/* ---------------------------- card map ---------------------------- */
+
+.mx-card-map {
+  position: relative;
+  height: 250px;
+  margin: 10px 0 0;
+  overflow: hidden;
+}
+.mx-card-canvas {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+.mx-card-loading {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+}
+.mx-expand {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgb(var(--black-rgb)/0.45);
+  cursor: pointer;
+}
+.mx-card-map .maplibregl-ctrl-attrib,
+.mx-root .maplibregl-ctrl-attrib {
+  font-size: 10px;
+  background: rgb(var(--bg-deep-rgb)/0.7) !important;
+  color: var(--dim);
+}
+.mx-card-map .maplibregl-ctrl-attrib a,
+.mx-root .maplibregl-ctrl-attrib a {
+  color: var(--dim);
+}
+
+/* ---------------------------- explorer ---------------------------- */
+
+.mx-root {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: var(--bg-deep);
+  overflow: hidden;
+  animation: mx-in 260ms var(--ease-out) both;
+}
+@keyframes mx-in {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.mx-map {
+  position: absolute;
+  inset: 0;
+}
+.mx-map .maplibregl-canvas {
+  transition: filter 380ms ease;
+}
+
+/* The switch look: desaturated, cooler, letterboxed while the camera travels. */
+.mx-root.is-switching .mx-map .maplibregl-canvas {
+  filter: saturate(0.25) contrast(1.15) brightness(1.05) hue-rotate(-12deg);
+}
+.mx-root.beat-up .mx-map .maplibregl-canvas,
+.mx-root.beat-down .mx-map .maplibregl-canvas {
+  filter: saturate(0.15) contrast(1.2) brightness(0.95) blur(1.6px);
+}
+.mx-bars::before,
+.mx-bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  height: 0;
+  background: var(--black);
+  transition: height 320ms var(--ease-out);
+  pointer-events: none;
+}
+.mx-bars::before {
+  top: 0;
+}
+.mx-bars::after {
+  bottom: 0;
+}
+.mx-root.is-switching .mx-bars::before,
+.mx-root.is-switching .mx-bars::after {
+  height: 9vh;
+}
+
+.mx-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 30%, rgb(var(--bg-deep-rgb)/0.55) 100%),
+    repeating-linear-gradient(0deg, rgb(var(--white-rgb)/0.05) 0 1px, transparent 1px 3px);
+  animation: mx-flash 420ms ease-out both;
+}
+.beat-land .mx-flash {
+  animation-duration: 700ms;
+}
+@keyframes mx-flash {
+  0% {
+    opacity: 0;
+    backdrop-filter: blur(0);
+    background-color: rgb(var(--white-rgb)/0);
+  }
+  18% {
+    opacity: 1;
+    backdrop-filter: blur(6px);
+    background-color: rgb(var(--accent-soft-rgb)/0.08);
+  }
+  100% {
+    opacity: 0;
+    backdrop-filter: blur(0);
+    background-color: rgb(var(--white-rgb)/0);
+  }
+}
+
+.mx-top {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: calc(10px + var(--safe-top)) 12px 18px;
+  background: linear-gradient(180deg, rgb(var(--bg-deep-rgb)/0.85), transparent);
+}
+.mx-round {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--fg);
+  background: rgb(var(--surface-rgb)/0.8);
+  border: 1px solid rgb(var(--white-rgb)/0.14);
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+.mx-title {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  text-shadow: 0 1px 8px var(--black);
+}
+.mx-title strong {
+  font-size: 18px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mx-title span {
+  font-size: 11.5px;
+  color: var(--fg-3);
+}
+
+.mx-hud {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 4;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+  text-align: center;
+  animation: mx-hud 2.8s ease both;
+}
+.mx-hud-k {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--accent);
+}
+.mx-hud-v {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  text-shadow: 0 2px 20px var(--black), 0 0 2px var(--black);
+}
+@keyframes mx-hud {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+  12%,
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.mx-center {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--fg-3);
+}
+.mx-center.is-error {
+  background: rgb(var(--bg-deep-rgb)/0.85);
+}
+.mx-spin-slow {
+  color: var(--accent);
+  animation: auth-spin 2.4s linear infinite;
+}
+
+.mx-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 0 calc(14px + var(--safe-bottom));
+  background: linear-gradient(0deg, rgb(var(--bg-deep-rgb)/0.9), transparent);
+}
+.mx-chips {
+  display: flex;
+  gap: 8px;
+  padding: 0 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.mx-chips::-webkit-scrollbar {
+  display: none;
+}
+.mx-chip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 14px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg);
+  background: rgb(var(--surface-rgb)/0.85);
+  border: 1px solid rgb(var(--white-rgb)/0.14);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+.mx-chip.is-active {
+  border-color: var(--accent);
+  background: rgb(var(--accent-rgb)/0.16);
+}
+
+.mx-card {
+  margin: 0 12px;
+  padding: 14px;
+  background: rgb(var(--surface-rgb)/0.92);
+  border: 1px solid rgb(var(--white-rgb)/0.12);
+  border-left: 3px solid var(--sev, var(--accent));
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  animation: mx-card-in 360ms var(--ease-out) both;
+}
+@keyframes mx-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.mx-card.is-critical {
+  --sev: var(--crit);
+}
+.mx-card.is-warning {
+  --sev: var(--warn);
+}
+.mx-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.mx-card-top > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mx-card-top strong {
+  font-size: 17px;
+}
+.mx-card-top span {
+  font-size: 12.5px;
+  color: var(--dim);
+}
+.mx-card-figs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 12px 0;
+}
+.mx-card-figs span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mx-card-figs small {
+  font-size: 11px;
+  color: var(--dim);
+}
+.mx-card-figs b {
+  font-size: 15px;
+}
+.mx-card-figs .is-critical {
+  color: var(--crit);
+}
+.mx-card-figs .is-good {
+  color: var(--accent);
+}
+.mx-open {
+  width: 100%;
+  height: 46px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mx-root,
+  .mx-flash,
+  .mx-hud,
+  .mx-pin-pulse,
+  .mx-card {
+    animation: none !important;
+  }
+}
+
+.mx-map.is-far .mx-pin-label {
+  display: none;
+}

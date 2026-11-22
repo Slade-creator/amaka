@@ -1,0 +1,45 @@
+{
+  "name": "amaka-energy-command",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "theme": "node scripts/gen-theme.mjs",
+    "predev": "node scripts/gen-theme.mjs",
+    "prebuild": "node scripts/gen-theme.mjs",
+    "prebuild:mobile": "node scripts/gen-theme.mjs",
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "build:mobile": "tsc --noEmit && vite build --mode mobile",
+    "preview": "vite preview",
+    "cap:sync": "npm run build:mobile && cap sync android",
+    "cap:open": "cap open android",
+    "apk": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-apk.ps1"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.6.2",
+    "@capacitor/filesystem": "^8.1.5",
+    "@capacitor/haptics": "^8.0.2",
+    "@capacitor/preferences": "^8.0.1",
+    "@capacitor/share": "^8.0.3",
+    "lucide-react": "^0.468.0",
+    "maplibre-gl": "^5.24.1",
+    "qrcode.react": "^4.2.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "recharts": "^2.15.4"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^4.0.0",
+    "@capacitor/cli": "^8.6.2",
+    "@tailwindcss/vite": "^4.1.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.4.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.8.0",
+    "vite": "^6.3.0"
+  }
+}
