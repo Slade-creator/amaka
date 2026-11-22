@@ -6,6 +6,16 @@ import { HttpError, saveServer, signIn, takeEndReason } from "../lib/session";
 import { isNative } from "../lib/platform";
 import "./auth.css";
 
+/** "https://abc.lambda-url.af-south-1.on.aws/api" -> "abc.lambda-url.af-south-1.on.aws". */
+function hostOf(base: string): string {
+  if (!base) return "Same origin";
+  try {
+    return new URL(base).host;
+  } catch {
+    return base;
+  }
+}
+
 type Props = {
   /** Phone layout (full-bleed) vs centred desktop card. */
   mobile: boolean;
@@ -139,7 +149,7 @@ export default function LoginScreen({ mobile }: Props) {
           ) : (
             <button type="button" className="auth-server" onClick={() => setShowServer(true)}>
               <Server size={14} aria-hidden="true" />
-              <span className="num">{getApiBase() || "Same origin"}</span>
+              <span className="num" title={getApiBase()}>{hostOf(getApiBase())}</span>
               <span className="auth-server-edit">Change</span>
             </button>
           )

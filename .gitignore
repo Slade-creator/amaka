@@ -49,3 +49,4 @@ graphify-out/
 *.apk
 .aws-sam/
 dist-web/
+amaka-lambda.zip
